@@ -1,0 +1,1 @@
+# GloriousBadgers - Laravel path
