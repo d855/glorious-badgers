@@ -14,7 +14,7 @@
         public function index()
         {
             return view('post.index', [
-                'posts' => Post::with(['author', 'category'])->paginate(15)
+                'posts' => Post::published()->with(['author', 'category'])->get()
             ]);
         }
         

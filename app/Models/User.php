@@ -39,6 +39,11 @@
             'email_verified_at' => 'datetime', 'password' => 'hashed',
         ];
         
+        public function getFullNameAttribute(): string
+        {
+            return sprintf("%s %s", $this->first_name, $this->last_name);
+        }
+        
         public function posts(): HasMany
         {
             return $this->hasMany(Post::class, 'author_id');
