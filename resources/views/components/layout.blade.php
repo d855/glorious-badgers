@@ -18,12 +18,15 @@
 	<body>
 		<nav class="topnav">
 			<a href="{{ route('home') }}">Home</a>
+			<a href="{{ route('posts.index') }}">Posts</a>
 			<a href="{{ route('about') }}">About</a>
 			<a href="{{ route('contact') }}">Contact</a>
 		</nav>
 
-		<main>
-			{{ $slot }}
-		</main>
+		<div class="container">
+			<main>
+				{{ $slot }}
+			</main>
+		</div>
 	</body>
 </html>

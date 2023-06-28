@@ -1,5 +1,6 @@
 <?php
     
+    use App\Http\Controllers\PostController;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Facades\View;
     
@@ -41,3 +42,12 @@
     Route::get('/about', function () {
         return view('about');
     })->name('about');
+    
+    /* This single route declaration creates multiple routes
+    * to handle a variety of actions on the resource.
+     * The generated controller will already have methods
+     * stubbed for each of these actions. Remember, you can always
+     * get a quick overview of your application's routes by
+     * running the route:list Artisan command.
+     */
+    Route::resource('posts', PostController::class);
