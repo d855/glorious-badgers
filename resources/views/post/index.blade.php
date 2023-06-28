@@ -1,6 +1,8 @@
 <x-layout>
-	<h1>All Posts</h1>
-
+	<div>
+		<h1>All Posts</h1>
+		<x-button href="{{ route('posts.create') }}">New post</x-button>
+	</div>
 	<div>
 		<table>
 			<thead>
@@ -14,7 +16,11 @@
 			<tbody>
 			@foreach($posts as $post)
 				<tr>
-					<td>{{ $post->title }}</td>
+					<td>
+						<a href="{{ route('posts.show', $post->id) }}">
+							{{ $post->title }}
+						</a>
+					</td>
 					<td>{{ $post->author->full_name }}</td>
 					<td>{{ $post->category->name }}</td>
 					<td>{{ $post->created_at->diffForHumans() }}</td>

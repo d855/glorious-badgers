@@ -4,6 +4,7 @@
     
     // use Illuminate\Contracts\Auth\MustVerifyEmail;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
+    use Illuminate\Database\Eloquent\Relations\BelongsTo;
     use Illuminate\Database\Eloquent\Relations\HasMany;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Notifications\Notifiable;
@@ -42,6 +43,16 @@
         public function getFullNameAttribute(): string
         {
             return sprintf("%s %s", $this->first_name, $this->last_name);
+        }
+        
+        public function scopeAuthor($query)
+        {
+            $query->whereHas('role', fn($query) => $query->where('name', 'author'));
+        }
+        
+        public function role(): BelongsTo
+        {
+            return $this->belongsTo(Role::class);
         }
         
         public function posts(): HasMany
