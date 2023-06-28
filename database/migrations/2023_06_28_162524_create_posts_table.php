@@ -11,15 +11,14 @@
          */
         public function up(): void
         {
-            Schema::create('users', function (Blueprint $table) {
+            Schema::create('posts', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('role_id')->default(3)->constrained('roles');
-                $table->string('first_name');
-                $table->string('last_name');
-                $table->string('email')->unique();
-                $table->timestamp('email_verified_at')->nullable();
-                $table->string('password');
-                $table->rememberToken();
+                $table->foreignId('author_id')->constrained('users')->cascadeOnDelete();
+                $table->foreignId('category_id')->constrained('categories');
+                $table->string('title');
+                $table->mediumText('body');
+                $table->string('slug')->nullable();
+                $table->boolean('is_published')->default(false);
                 $table->timestamps();
             });
         }
@@ -29,7 +28,7 @@
          */
         public function down(): void
         {
-            Schema::dropIfExists('users');
+            Schema::dropIfExists('posts');
         }
         
     };
