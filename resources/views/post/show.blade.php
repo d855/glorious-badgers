@@ -12,7 +12,7 @@
 			<label for="comment">Comment</label>
 			<input type="text" name="body" id="comment" placeholder="Write a comment..">
 
-			<input type="submit" value="Add Comment">
+			<input type="submit" class="submit-btn" value="Add Comment">
 		</form>
 	</div>
 

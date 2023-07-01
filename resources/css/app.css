@@ -104,7 +104,7 @@ input[type=text] {
     box-sizing: border-box;
 }
 
-input[type=button], input[type=submit], input[type=reset] {
+.submit-btn {
     background-color: #04AA6D;
     border: none;
     color: white;
@@ -116,4 +116,13 @@ input[type=button], input[type=submit], input[type=reset] {
 
 .alert-danger {
     color: red;
+}
+
+.delete-btn {
+    background-color: #e30d0d;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    text-decoration: none;
+    cursor: pointer;
 }

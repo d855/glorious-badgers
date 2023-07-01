@@ -63,7 +63,7 @@
          */
         public function edit(string $id)
         {
-            //
+            return view('post.edit', ['post' => Post::find($id), 'categories' => Category::all()]);
         }
         
         /**
@@ -71,7 +71,14 @@
          */
         public function update(Request $request, string $id)
         {
-            //
+            $data = $request->validate([
+                'title'       => 'string|required', 'body' => 'string|required',
+                'category_id' => 'required|exists:categories,id'
+            ]);
+            
+            Post::find($id)->update($data);
+            
+            return to_route('posts.show', $id);
         }
         
         /**
@@ -79,7 +86,9 @@
          */
         public function destroy(string $id)
         {
-            //
+            Post::find($id)->delete();
+            
+            return to_route('posts.index');
         }
         
     }
