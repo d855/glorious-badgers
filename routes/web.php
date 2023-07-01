@@ -1,5 +1,6 @@
 <?php
     
+    use App\Http\Controllers\PostCommentController;
     use App\Http\Controllers\PostController;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Facades\View;
@@ -51,3 +52,5 @@
      * running the route:list Artisan command.
      */
     Route::resource('posts', PostController::class);
+    
+    Route::post('/posts/{post:id}/comments', [PostCommentController::class, 'store'])->name('posts.comments.store');

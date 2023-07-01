@@ -6,7 +6,7 @@
 			@csrf
 
 			<label for="title">Title</label>
-			<input type="text" id="title" name="title" placeholder="Post title">
+			<input type="text" id="title" name="title" placeholder="Post title" value="{{ old('title') }}">
 			@error('title')
 			<div class="alert-danger">{{$message}}</div>
 			@enderror
@@ -34,7 +34,7 @@
 			@enderror
 
 			<label for="body">Post body</label>
-			<textarea name="body" id="body" cols="30" rows="10"></textarea>
+			<textarea name="body" id="body" cols="30" rows="10">{{ old('body') }}</textarea>
 			@error('body')
 			<div class="alert-danger">{{$message}}</div>
 			@enderror
