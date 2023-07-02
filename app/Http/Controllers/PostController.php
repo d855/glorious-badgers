@@ -25,7 +25,6 @@
          */
         public function store(Request $request)
         {
-            //            dd($request);
             $data = $request->validate([
                 'title'       => 'required|string', 'body' => 'required|string',
                 'author_id'   => 'required|exists:users,id', 'category_id' => 'required|exists:categories,id'
