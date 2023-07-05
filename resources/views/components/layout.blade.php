@@ -16,13 +16,26 @@
 		@vite(['resources/css/app.css'])
 	</head>
 	<body>
-		<nav class="topnav">
-			<a href="{{ route('home') }}">Home</a>
-			<a href="{{ route('posts.index') }}">Posts</a>
-			<a href="{{ route('about') }}">About</a>
-			<a href="{{ route('contact') }}">Contact</a>
-		</nav>
+		@auth
+			<nav class="topnav">
+				<div class="list">
+					<a href="{{ route('home') }}">Home</a>
+					<a href="{{ route('posts.index') }}">Posts</a>
+					<a href="{{ route('about') }}">About</a>
+					<a href="{{ route('contact') }}">Contact</a>
+				</div>
 
+				<div>
+					<div>
+						Hi, {{ auth()->user()->full_name }}
+					</div>
+					<form action="{{ route('logout') }}" method="POST">
+						@csrf
+						<a href="#" onclick="event.preventDefault(); this.closest('form').submit()">Logout</a>
+					</form>
+				</div>
+			</nav>
+		@endauth
 		<div class="container">
 			<main>
 				{{ $slot }}

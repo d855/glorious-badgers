@@ -1,7 +1,9 @@
 <?php
     
+    use App\Http\Controllers\AuthSessionController;
     use App\Http\Controllers\PostCommentController;
     use App\Http\Controllers\PostController;
+    use App\Http\Controllers\RegisterUserController;
     use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Facades\View;
     
@@ -54,3 +56,10 @@
     Route::resource('posts', PostController::class);
     
     Route::post('/posts/{post:id}/comments', [PostCommentController::class, 'store'])->name('posts.comments.store');
+    
+    Route::get('/register', [RegisterUserController::class, 'create'])->name('register');
+    Route::post('/register', [RegisterUserController::class, 'store'])->name('register.store');
+    
+    Route::get('/login', [AuthSessionController::class, 'create'])->name('login');
+    Route::post('/login', [AuthSessionController::class, 'store'])->name('login.store');
+    Route::post('/logout', [AuthSessionController::class, 'destroy'])->name('logout');
