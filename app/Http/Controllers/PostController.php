@@ -6,6 +6,7 @@
     use App\Models\Post;
     use App\Models\User;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Gate;
     
     class PostController extends Controller
     {
@@ -16,7 +17,8 @@
         public function index()
         {
             return view('post.index', [
-                'posts' => Post::published()->with(['author', 'category'])->get()
+                'posts' => Post::latest()->with(['author', 'category'])->get()
+                //                'posts' => Post::published()->with(['author', 'category'])->get()
             ]);
         }
         
@@ -27,12 +29,13 @@
         {
             $data = $request->validate([
                 'title'       => 'required|string', 'body' => 'required|string',
-                'author_id'   => 'required|exists:users,id', 'category_id' => 'required|exists:categories,id'
+                'category_id' => 'required|exists:categories,id'
             ], [
                 'title.required'     => 'Naslov je obavezan.', 'body.required' => 'Tekst je obavezan.',
                 'author_id.required' => 'Autor je obavezan.', 'category_id.required' => 'Kategorija je obavezna.',
             ]);
             $data['slug'] = $request->title;
+            $data['author_id'] = auth()->user()->id;
             
             $post = Post::create($data);
             
@@ -62,7 +65,12 @@
          */
         public function edit(string $id)
         {
-            return view('post.edit', ['post' => Post::find($id), 'categories' => Category::all()]);
+            $post = Post::find($id);
+            if (! Gate::allows('update-post', $post)) {
+                abort(403);
+            }
+            
+            return view('post.edit', ['post' => $post, 'categories' => Category::all()]);
         }
         
         /**
@@ -85,7 +93,11 @@
          */
         public function destroy(string $id)
         {
-            Post::find($id)->delete();
+            $post = Post::find($id);
+            
+            $this->authorize('delete', $post);
+            
+            $post->delete();
             
             return to_route('posts.index');
         }

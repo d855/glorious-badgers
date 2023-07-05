@@ -11,17 +11,6 @@
 			<div class="alert-danger">{{$message}}</div>
 			@enderror
 
-			<label for="author">Author</label>
-			<select name="author_id" id="author">
-				<option value="" selected>Choose author</option>
-				@foreach($authors as $author)
-					<option value="{{ $author->id }}">{{ $author->full_name }}</option>
-				@endforeach
-			</select>
-			@error('author_id')
-			<div class="alert-danger">{{$message}}</div>
-			@enderror
-
 			<label for="category">Category</label>
 			<select name="category_id" id="category">
 				<option value="" selected>Choose category</option>
